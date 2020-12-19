@@ -29,7 +29,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    document.body.style.backgroundColor = "#181A1B";
+    document.body.style.backgroundColor = "#181A1B";    
   }
 
   state = {
@@ -41,28 +41,33 @@ class App extends Component {
   handleRun = () => {
     var url = "http://localhost:3001/api/code";
     const codeData = this.state.code;
-    const lanag=this.state.lanauge;
-    let formData = new FormData();
-    formData.append("code", codeData);
-    formData.append("lanauge",lanag);
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-    console.log(formData);
-    axios
-      .post(url, formData, config)
-      .then((response) => {
-        var temp = response.data.codeoutput;
-        this.setState({
-          results: temp.toString(),
+    const lanag = this.state.lanauge;
+    console.log("code data : ",codeData);    
+     if (lanag === "Select Lanauge") {      
+      alert("Please select lanauge!")
+    } else {
+      let formData = new FormData();
+      formData.append("code", codeData);
+      formData.append("lanauge", lanag);
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      console.log(formData);
+      axios
+        .post(url, formData, config)
+        .then((response) => {
+          var temp = response.data.codeoutput;
+          this.setState({
+            results: temp.toString(),
+          });
+          console.log(temp);
+        })
+        .catch((error) => {
+          console.log("problem in sending code to server");
         });
-        console.log(temp);
-      })
-      .catch((error) => {
-        console.log("problem in sending code to server");
-      });
+    }
   };
 
   handleLanaugeChange = (str) => {
@@ -78,6 +83,7 @@ class App extends Component {
   };
 
   render() {
+    
     return (
       <div>
         <div class="flex justify-between">
