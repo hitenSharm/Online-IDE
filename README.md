@@ -1,5 +1,5 @@
 # Online-IDE
-Currently has javascript support for testing code.Will add more soon. <br/>
+Can run Javascript and Python code. <br/>
 Frontend uses react and server is made using node and express.<br/>
 To use:<br/>
 First do : node server.js.<br/>
